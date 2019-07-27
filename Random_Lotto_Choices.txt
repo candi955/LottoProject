@@ -1,0 +1,74 @@
+
+----------------------
+Your random White Ball numbers are:
+[52, 32, 41, 23, 15]
+
+Your random Red Ball number is:
+[2]
+----------------------
+
+----------------------
+Your two even and three random White Ball numbers are:
+34, 20 and [24, 27, 67]
+
+Your even Red Ball is:
+2
+----------------------
+
+----------------------
+Your two odd and three random White Ball numbers are:
+57, 65 and [20, 23, 22]
+
+Your odd Red Ball is:
+25
+----------------------
+
+----------------------
+Your two common winning White Balls and three random White Balls are:
+
+----------------------
+Your two common winning White Balls and three random White Balls are:
+['16']['41'][26, 22, 14]
+
+----------------------
+Your two common winning White Balls and three random White Balls are:
+['41']['39'][55, 69, 6]
+
+Your common winning Red Ball number is:
+9
+----------------------
+If you have chosen Spanish translation, please make sure 
+you make an initial lottery choice prior to requesting translation.
+----------------------
+Your random White Ball numbers are:
+[45, 66, 11, 42, 50]
+
+Your random Red Ball number is:
+[9]
+----------------------
+
+----------------------
+Your two even and three random White Ball numbers are:
+62, 34 and [56, 41, 36]
+
+Your even Red Ball is:
+14
+----------------------
+
+----------------------
+Your two odd and three random White Ball numbers are:
+21, 11 and [30, 39, 29]
+
+Your odd Red Ball is:
+3
+----------------------
+
+----------------------
+Your two common winning White Balls and three random White Balls are:
+['13']['41'][19, 11, 31]
+
+Your common winning Red Ball number is:
+9
+----------------------
+If you have chosen Spanish translation, please make sure 
+you make an initial lottery choice prior to requesting translation.
