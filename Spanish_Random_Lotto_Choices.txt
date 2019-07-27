@@ -1,0 +1,118 @@
+
+----------------------
+Sus números aleatorios de White Ball son:
+[52, 32, 41, 23, 15]
+
+Su número aleatorio de Red Ball es:
+[2]
+----------------------
+
+----------------------
+Sus dos pares y tres números aleatorios de White Ball son:
+34, 20 y [24, 27, 67]
+
+Tu incluso Red Ball es:
+2
+----------------------
+
+----------------------
+Sus dos números impares y tres números aleatorios de White Ball son:
+57, 65 y [20, 23, 22]
+
+Tu extraña bola roja es:
+25
+----------------------
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+['16'] ['41'] [26, 22, 14]
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+['41'] ['39'] [55, 69, 6]
+
+Su número ganador común de Red Ball es:
+9
+----------------------
+Si ha elegido la traducción al español, asegúrese de
+Usted hace una elección de lotería inicial antes de solicitar la traducción.
+
+----------------------
+----------------------
+Sus números aleatorios de White Ball son:
+[52, 32, 41, 23, 15]
+
+Su número aleatorio de Red Ball es:
+[2]
+----------------------
+
+----------------------
+Sus dos pares y tres números aleatorios de White Ball son:
+34, 20 y [24, 27, 67]
+
+Tu incluso Red Ball es:
+2
+----------------------
+
+----------------------
+Sus dos números impares y tres números aleatorios de White Ball son:
+57, 65 y [20, 23, 22]
+
+Tu extraña bola roja es:
+25
+----------------------
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+['16'] ['41'] [26, 22, 14]
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+['41'] ['39'] [55, 69, 6]
+
+Su número ganador común de Red Ball es:
+9
+----------------------
+Si ha elegido la traducción al español, asegúrese de
+Usted hace una elección de lotería inicial antes de solicitar la traducción.
+----------------------
+Sus números aleatorios de White Ball son:
+[45, 66, 11, 42, 50]
+
+Su número aleatorio de Red Ball es:
+[9]
+----------------------
+
+----------------------
+Sus dos pares y tres números aleatorios de White Ball son:
+62, 34 y [56, 41, 36]
+
+Tu incluso Red Ball es:
+14
+----------------------
+
+----------------------
+Sus dos números impares y tres números aleatorios de White Ball son:
+21, 11 y [30, 39, 29]
+
+Tu extraña bola roja es:
+3
+----------------------
+
+----------------------
+Sus dos bolas blancas ganadoras comunes y tres bolas blancas al azar son:
+['13'] ['41'] [19, 11, 31]
+
+Su número ganador común de Red Ball es:
+9
+----------------------
+Si ha elegido la traducción al español, asegúrese de
+Usted hace una elección de lotería inicial antes de solicitar la traducción.
+
+----------------------
