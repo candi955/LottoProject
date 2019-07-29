@@ -7,30 +7,19 @@
 # training reference: https://www.youtube.com/watch?v=K9ypGzuP6xQ
 
 import tensorflow as tf
+from tensorflow.python.training import optimizer
+
+from keras import optimizers
+sgd = optimizers.SGD(lr=0.01, clipnorm=1.)
+keras = optimizers.Adam(lr=0.01, epsilon=None, decay=0.0)
+# keras reference to prevent Nan error: https://keras.io/optimizers/
+# reference concerning Nan and large gradients: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
+
 import numpy as np
 import os
-import keras
 
-# had to install pip install the tensorflow==2.0.0-beta1 to attempt to remove Future Warning
-    # Using TensorFlow backend.
-    # WARNING:tensorflow:From C:\Users\canda_000\.conda\envs\tensor\lib\site-packages\tensorflow\python\ops\resource_
-    # variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a
-    # future version.
-    # Instructions for updating:
-    # Colocations handled automatically by placer.
-
-# Other warning:
-    # Successfully built the termcolor gast absl-py
-    # tb-nightly 1.14.0a20190603 has requirement setuptools>=41.0.0, but you'll have setuptools 40.8.0 which is
-    # incompatible.
-
-
-#import warnings
-#warnings.simplefilter(action='ignore', category=FutureWarning)
-
-
-DELIMITER = ","
-
+# Receiving Future Warnings; through research found that with open source Tensor Flow it is difficult and possibly
+# not possibly to completely rid the program of these.
 
 # reference: https://github.com/tensorflow/tensorflow/issues/1258
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -45,12 +34,11 @@ class Predictions():
     def _predictions_(self):
 
         # using tensorflow and keras to process number sequences
+        # passing optimizer by name keras due to import of Adam optimizer
 
         model = tf.keras.models.Sequential()
 
         model.add(tf.keras.layers.Dense(1, input_dim=1))
-
-        # passing optimizer by name: default parameters will be used
 
         print('Please enter the five number (possibly from most recent Powerball lottery pick) in sequential order')
 
@@ -68,6 +56,7 @@ class Predictions():
         meanX = (xs).astype(np.float)
         meanXmean = (meanX).mean()
 
+
         print('Average of the X variables chosen is: ')
         print(meanXmean)
 
@@ -84,7 +73,8 @@ class Predictions():
         ys = (a, b, c, d, e)
 
         print('Following is the error calculation for prediction of sequence (training; set to 500 epochs):')
-        model.fit(xs, ys, epochs=500)
+
+        model.fit(xs, ys, epochs=2000)
 
         print('\n' + '\n' +'Please enter a set of five dummy numbers for our prediction model, in sequential order ' +
               '(preferably from a recent past lottery if possible): ' + '\n')
@@ -99,9 +89,11 @@ class Predictions():
         print(askDummy1 + ',' + askDummy2 + ',' + askDummy3 + ',' + askDummy4 + ',' + askDummy5)
 
         print('Please see your sequential number prediction that could possibly be used for another lottery:')
-        to_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5])
-        j = model.predict(to_predict)
+        dummyNum_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5]).astype(np.float)
+        j = model.predict(dummyNum_predict).astype(np.float)
         print(j)
+
+# reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
 
 Predictions()
 
