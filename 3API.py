@@ -7,16 +7,15 @@
 # training reference: https://www.youtube.com/watch?v=K9ypGzuP6xQ
 
 import tensorflow as tf
-from tensorflow.python.training import optimizer
-
 from keras import optimizers
 sgd = optimizers.SGD(lr=0.01, clipnorm=1.)
 keras = optimizers.Adam(lr=0.01, epsilon=None, decay=0.0)
-# keras reference to prevent Nan error: https://keras.io/optimizers/
-# reference concerning Nan and large gradients: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
-
 import numpy as np
 import os
+# keras reference to prevent Nan error: https://keras.io/optimizers/
+# reference concerning Nan and large gradients: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
+# reference Adam: https://www.programcreek.com/python/example/104282/keras.optimizers.Adam
+
 
 # Receiving Future Warnings; through research found that with open source Tensor Flow it is difficult and possibly
 # not possibly to completely rid the program of these.
