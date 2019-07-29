@@ -26,6 +26,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 # a Predictions class, to create the program.  I wanted to create it as a class in case I wanted to add other methods
 # and options to the program later.
 class Predictions():
+
     #import tensorflow.python.util.deprecation as deprecation
     #deprecation._PRINT_DEPRECATION_WARNINGS = False
 
@@ -50,7 +51,7 @@ class Predictions():
         print('You chose as your independent set of X variables: ')
         print(ask1 + ',' + ask2 + ',' + ask3 + ',' + ask4 + ',' + ask5)
 
-        model.compile(loss='mean_squared_error', optimizer='sgd')
+        model.compile(loss='mean_squared_error', optimizer='Adam')
         xs = np.array([ask1, ask2, ask3, ask4, ask5])
         meanX = (xs).astype(np.float)
         meanXmean = (meanX).mean()
@@ -71,30 +72,62 @@ class Predictions():
         # creating dependent set of variables
         ys = (a, b, c, d, e)
 
-        print('Following is the error calculation for prediction of sequence (training; set to 500 epochs):')
+        toContinue = input('\n' + '\n' + 'Please press 1 to continue with the sequence program, or 2 to start again.  You can press 3 ' +
+                    'to return to the lottery program main menu:')
 
-        model.fit(xs, ys, epochs=2000)
+        print(toContinue)
 
-        print('\n' + '\n' +'Please enter a set of five dummy numbers for our prediction model, in sequential order ' +
-              '(preferably from a recent past lottery if possible): ' + '\n')
+        if toContinue == '1':
+            print('Following is the error calculation for prediction of sequence (training; set to 500 epochs):')
 
-        askDummy1 = input('First number:')
-        askDummy2 = input('Second number:')
-        askDummy3 = input('Third number:')
-        askDummy4 = input('Fourth number:')
-        askDummy5 = input('Fifth number:')
+            model.fit(xs, ys, epochs=2000)
 
-        print('You chose the dummy numbers:')
-        print(askDummy1 + ',' + askDummy2 + ',' + askDummy3 + ',' + askDummy4 + ',' + askDummy5)
+            print('\n' + '\n' +'Please enter a set of five dummy numbers for our prediction model, in sequential order ' +
+                      '(preferably from a recent past lottery if possible): ' + '\n')
 
-        print('Please see your sequential number prediction that could possibly be used for another lottery:')
-        dummyNum_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5]).astype(np.float)
-        j = model.predict(dummyNum_predict).astype(np.float)
-        print(j)
+            askDummy1 = input('First number:')
+            askDummy2 = input('Second number:')
+            askDummy3 = input('Third number:')
+            askDummy4 = input('Fourth number:')
+            askDummy5 = input('Fifth number:')
 
-# reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
-# reference for Nan prevention: https://github.com/keras-team/keras/issues/2134
+            print('You chose the dummy numbers:')
+            print(askDummy1 + ',' + askDummy2 + ',' + askDummy3 + ',' + askDummy4 + ',' + askDummy5)
+
+            print('Please see your sequential number prediction that could possibly be used for another lottery:')
+
+            dummyNum_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5]).astype(np.float)
+            j = model.predict(dummyNum_predict).astype(np.float)
+            print(j)
+
+            # reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
+            # reference for Nan prevention: https://github.com/keras-team/keras/issues/2134
+
+            if toContinue == '2':
+
+                Predictions()
+
+            if toContinue == '3':
+
+                import mainPage.py
+
+            lastChoice = input('\n' + '\n' + 'Please press 1 to return to the sequence program, or 2 to return to' +
+                               'the main lottery program menu:')
+
+            print(lastChoice)
+
+            if lastChoice == '1':
+
+                Predictions()
+
+            if lastChoice == '2':
+
+                import mainPage.py
+
 Predictions()
 
-pred = Predictions()
-pred._predictions_()
+sequ = Predictions()
+
+sequ._predictions_()
+
+
