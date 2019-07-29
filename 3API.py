@@ -93,7 +93,7 @@ class Predictions():
         print(j)
 
 # reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
-
+# reference for Nan prevention: https://github.com/keras-team/keras/issues/2134
 Predictions()
 
 pred = Predictions()
