@@ -1,3 +1,6 @@
+# Utilizing pandas and matplotlib APIs to create an excel format view of the data, and then evaluate the White and
+# Red Ball data patterns individually via bar charts. Called from mainPage.py as BAR.
+
 # 7/22/2019@9:42am I am starting from scratch, as I believe I got too far ahead of myself this week, and my programming
 # was failing.  However I did save all attempts because I believe I can get them working eventually, it will just take
 # more time and studying. Today I'm going to attempt to utilize an API for part of my project, and then
@@ -9,7 +12,7 @@
 # underestimated the time it would take, but not by much.
 # 7/24/2019 I am going to clean up the code (with classes) and make a menu.  I am going to hashtag some of the print
 # functions (in case I need them to test the code later, or pull up some of the data to view it).
-# 14:34 I have finished cleaning up the NeuralPage.py and the ML_Page.py.  I am not going to add menus to the
+# 14:34 I have finished cleaning up the Bar.py and the Scatter.py.  I am not going to add menus to the
 # mainPage.py to call them.
 
 
@@ -146,4 +149,6 @@ bar._wb3Bar_()
 bar._wb4Bar_()
 bar._wb5Bar_()
 bar._rb_Bar_()
+
+
 
