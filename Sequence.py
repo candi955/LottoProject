@@ -1,10 +1,23 @@
-
+# Number sequence predictor program utilizing TensorFlow and Keras, to be called from the mainPage.py program.
 
 # Uses Tensor, Keras, Numpy, and OS to allow user to place number inputs, then takes the mean and creates a y variable
 # by adding those means to 1, and then to the sum of that, and so on. Then the user is prompted to input dummy numbers.
 # Then after a series of training and error calculation (500 epochs), the system outputs a useable set of numbers,
 # something that might fall into a prediction that will help the user play future Powerball lotteries.
 # training reference: https://www.youtube.com/watch?v=K9ypGzuP6xQ
+
+# 7/27/2019 @ 13:40 I have decided to pull from a practice file to create a Sequence file, but with my own set of
+# real lottery data.  This will require user input. I estimate this to take approximately 5 hours.
+# 17:21 The entry of my own numbers has been a little difficult.  Have had to perform updates on floats versus arrays,
+# etc.
+# 20:15 I spent quite a bit of time trying to get rid of Future Warnings, only to research and find out that the
+# future warnings are just part of Open Source tensor flow, and appear to only go away with a paid version.
+# 23:52 I added the Adam optimizer to keep the Nan's from happening at the end when the gradients are too far apart.
+# It seems to be working.
+# 13:12 I have added access to the program from the main menu. The program actually took me approximately 11 hours to
+# create with clearing of number format errors, the research and experiment on getting rid of Future Warnings, and
+# the initialization of the Adam optimizer.  It does appear to be working now, however. I underestimated creation time
+# by quite a bit. 
 
 import tensorflow as tf
 from keras import optimizers
@@ -129,5 +142,7 @@ Predictions()
 sequ = Predictions()
 
 sequ._predictions_()
+
+
 
 
