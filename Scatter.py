@@ -1,3 +1,8 @@
+# Linear regression with scatter plot charts to view the White and Red Ball data. Called from mainPage.py as SCATTER.
+
+# Utilizing numpy, xlrd, statsmodels, as new APIs not used in the previous project. The program also utilizes the APIs
+# pandas and matplotlib.
+
 # 7/23/2019 @ 10:17am I am estimating this project to take approximately 9 hours to complete.  I am going to make
 # scatter plot charts, and attempt linear regressions for all of the White and Red Balls.  I am going to search for
 # APIs to help me do this.  I am starting with Numpy and XLRD.  From research it looks like I'm going to need to use
@@ -26,7 +31,7 @@
 # working now.  I am going to clean it up with classes and make a mainPage.py menu to call it from the program by the
 # user. I am going to hashtag some of the print functions (in case I need them to test the code later, or pull up
 # some of the data to view it).
-# 14:34 I have finished cleaning up the NeuralPage.py and the ML_Page.py.  I am now going to add menus to the
+# 14:34 I have finished cleaning up the Bar.py and the Scatter.py.  I am now going to add menus to the
 # mainPage.py to call them.
 
 import numpy as np
@@ -35,6 +40,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from numpy.polynomial.polynomial import polyfit
 import statsmodels.api as sm
+import tensorflow as tf
+
 
 
 class Regression():
@@ -83,7 +90,29 @@ class Regression():
         plt.xlim(0, 70)
         plt.ylim(0, 50)
         plt.scatter(x, y, 1)
-        plt.show()
+        W1 = plt.show()
+        print(W1)
+
+        print('................................')
+
+        # implementing Tensorflow API
+        # resources: https://jacobbuckman.com/post/graph-inspection/
+        # https://www.tensorflow.org/api_docs/python/tf/Graph
+        W1 =tf.Graph()
+        with W1.as_default():
+
+            c = tf.constant(30.0)
+            assert c.graph is W1
+
+        print('W1 Tensorflow Graph:')
+        print(W1)
+        # output is the gloable default graph object: <tensorflow.python.framework.ops.Graph object at 0x000001C272F59470>
+
+
+
+
+
+        print('................................')
 
         # Attempting to use statsmodels to get summary of WB1 regression
 
@@ -383,4 +412,5 @@ show._wb3Reg_()
 show._wb4Reg_()
 show._wb5Reg_()
 show._RB_Reg_()
+
 
