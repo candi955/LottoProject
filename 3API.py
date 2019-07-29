@@ -1,22 +1,45 @@
 
+
+# Uses Tensor, Keras, Numpy, and OS to allow user to place number inputs, then takes the mean and creates a y variable
+# by adding those means to 1, and then to the sum of that, and so on. Then the user is prompted to input dummy numbers.
+# Then after a series of training and error calculation (500 epochs), the system outputs a useable set of numbers,
+# something that might fall into a prediction that will help the user play future Powerball lotteries.
 # training reference: https://www.youtube.com/watch?v=K9ypGzuP6xQ
 
 import tensorflow as tf
 import numpy as np
 import os
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
+import keras
+
+# had to install pip install the tensorflow==2.0.0-beta1 to attempt to remove Future Warning
+    # Using TensorFlow backend.
+    # WARNING:tensorflow:From C:\Users\canda_000\.conda\envs\tensor\lib\site-packages\tensorflow\python\ops\resource_
+    # variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a
+    # future version.
+    # Instructions for updating:
+    # Colocations handled automatically by placer.
+
+# Other warning:
+    # Successfully built the termcolor gast absl-py
+    # tb-nightly 1.14.0a20190603 has requirement setuptools>=41.0.0, but you'll have setuptools 40.8.0 which is
+    # incompatible.
+
+
+#import warnings
+#warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 DELIMITER = ","
 
-# setting a  minimum logging level
+
 # reference: https://github.com/tensorflow/tensorflow/issues/1258
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-
+# a Predictions class, to create the program.  I wanted to create it as a class in case I wanted to add other methods
+# and options to the program later.
 class Predictions():
-
-    warnings.simplefilter(action='ignore', category=FutureWarning)
+    #import tensorflow.python.util.deprecation as deprecation
+    #deprecation._PRINT_DEPRECATION_WARNINGS = False
 
     # Creating method to pull and set up 2019 lottery data and to run program
     def _predictions_(self):
@@ -29,11 +52,13 @@ class Predictions():
 
         # passing optimizer by name: default parameters will be used
 
-        ask1 = input(np.array('Please enter the first White Ball Lottery number from the last pick:'))
-        ask2 = input(np.array('Please enter the second White Ball Lottery number from the last pick:'))
-        ask3 = input(np.array('Please enter the third White Ball Lottery number from the last pick:'))
-        ask4 = input(np.array('Please enter the fourth White Ball Lottery number from the last pick:'))
-        ask5 = input(np.array('Please enter the fifth White Ball Lottery number from the last pick:'))
+        print('Please enter the five number (possibly from most recent Powerball lottery pick) in sequential order')
+
+        ask1 = input(np.array('First pick:'))
+        ask2 = input(np.array('Second pick:'))
+        ask3 = input(np.array('Third pick:'))
+        ask4 = input(np.array('Fourth pick:'))
+        ask5 = input(np.array('Fifth pick:'))
 
         print('You chose as your independent set of X variables: ')
         print(ask1 + ',' + ask2 + ',' + ask3 + ',' + ask4 + ',' + ask5)
@@ -60,19 +85,20 @@ class Predictions():
         print('Following is the error calculation for prediction of sequence (training; set to 500 epochs):')
         model.fit(xs, ys, epochs=500)
 
-        print('\n' + '\n' +'Please enter a set of four dummy numbers for our prediction model, in sequential order ' +
+        print('\n' + '\n' +'Please enter a set of five dummy numbers for our prediction model, in sequential order ' +
               '(preferably from a recent past lottery if possible): ' + '\n')
 
         askDummy1 = input('First number:')
         askDummy2 = input('Second number:')
         askDummy3 = input('Third number:')
         askDummy4 = input('Fourth number:')
+        askDummy5 = input('Fifth number:')
 
         print('You chose the dummy numbers:')
-        print(askDummy1 + ',' + askDummy2 + ',' + askDummy3 + ',' + askDummy4)
+        print(askDummy1 + ',' + askDummy2 + ',' + askDummy3 + ',' + askDummy4 + ',' + askDummy5)
 
         print('Please see your sequential number prediction that could possibly be used for another lottery:')
-        to_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4])
+        to_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5])
         j = model.predict(to_predict)
         print(j)
 
