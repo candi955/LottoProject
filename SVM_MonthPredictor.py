@@ -1,3 +1,20 @@
+# A program utilizing SKLearn to predict the month a set of lottery numbers will win (Currently only operates
+# for January until July, off of the dataset months I have available for the AZ Powerball numbers).  Called as SVM from
+# mainPage.py menu.
+
+
+# Training resource: https://www.youtube.com/watch?reload=9&v=bwZ3Qiuj3i8
+
+# Implementing an SVM
+# A support vector machine (SVM) is a type of supervised machine learning classification algorithm.
+# SVM differs from the other classification algorithms in the way that it chooses the decision boundary that maximizes
+# the distance from the nearest data points of all the classes. An SVM doesn't merely find a decision boundary; it
+# finds the most optimal decision boundary.
+# reference: https://stackabuse.com/implementing-svm-and-kernel-svm-with-pythons-scikit-learn/
+
+# Utilizing SKlearn, pandas, numpy, xlrd APIs and also using a subclass of exception: import warnings (to prevent a
+# Future Error warning from popping up; appears is due to possible future updates).
+
 # 7/25/2019 @ 21:17pm I am going to attempt to take what I've learned about SVM today, and adjust it to my lottery
 # program.  I estimate this to take 12 hours total.  First step is to create a dataset, which I have to learn how
 # to do.  I know SKlearn has datasets, but I am hoping to use one from my lotto numbers.  I feel it is important for
