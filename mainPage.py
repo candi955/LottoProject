@@ -1,3 +1,6 @@
+# The main page for the lottery number and prediction program, Project_3_APIs
+# Utilizing the textblob API, and also an import of the inbuilt random function
+
 # 7/11/2019 @ 13:31 I just started the project.  I estimate this project
 # of adding three API's to take approximately 9 hours when it's all said and done. I have one TextBlob API implemented
 # already (the Common Numbers, pulling random TextBlob words from the lists CommonRedBallNumbers.txt and
@@ -30,12 +33,11 @@
 # by about 3 hours. Neat ideas for future goals on my list: 1) Creating a clear page menu 2) Figure out how to make
 # the program know when a file is blank and not to pull text from it 3) Creating a GUI 4) Creating predictions
 # utilizing AI 5) Make sure Frequent numbers go on Spanish list.
-
-
+# 7/27/2019 @ 14:57 Throughout this week I have added menus for the SVM_MonthPredictor.py, Scatter.py, and
+# Bar.py, utilizing SVM, SCATTER, and BAR as menu choices to do so.
 
 import random
 from textblob import TextBlob
-
 
 # Creating class for the different Balls (Random White, Random Red, Even White, Even Red, Odd White, Odd Red,
 # and Common Winning White, Common Winning Red
@@ -694,6 +696,7 @@ def Choice():
                                "SVM - to try the SVM and KNN algorithm to " +
                                "predict the month numbers will be chosen / para probar el algoritmo SVM y KNN " +
                                "para predecir los números de mes que se elegirán" + "\n" +
+                               "SEQ - to predict lottery sequence / Para predecir la secuencia de lotería" + "\n" +
                                "SCATTER - for PowerBall Scatter Plot charts and associated data / "
                                " Para PowerBall Scatter Plot chart y datos asociados" + "\n" +
                                "BAR - for PowerBall Bar charts and associated data / para gráficos de barras " +
@@ -732,8 +735,11 @@ def Choice():
 
     if LotteryChoices == "SVM":
 
-        import SVM_LottoMonthPredictor.py
+        import SVM_MonthPredictor.py
 
+    if LotteryChoices == "SEQ":
+
+        import Sequence.py
 
     # ESP choice is to translate Random_Lotto_Choices.txt into Spanish on the Spanish_Random_Lotto_Choices.txt file
     if LotteryChoices == "ESP":
@@ -790,15 +796,15 @@ def Choice():
 
         mainM.main()
 
-    # To show the user the Scatter plots and associated data from the ML_Page.py.
+    # To show the user the Scatter plots and associated data from the Scatter.py.
     if LotteryChoices == "SCATTER":
-        import ML_Page
+        import Scatter.py
 
         mainM.main()
 
-    # To show the user the Bar charts and associated data from the NeuralPage.py.
+    # To show the user the Bar charts and associated data from the Bar.py.
     if LotteryChoices == "BAR":
-        import NeuralPage
+        import Bar.py
 
         mainM.main()
 
@@ -808,5 +814,6 @@ def Choice():
 
 
 Choice()
+
 
 
