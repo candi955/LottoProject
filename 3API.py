@@ -64,17 +64,18 @@ class Predictions():
         print(ask1 + ',' + ask2 + ',' + ask3 + ',' + ask4 + ',' + ask5)
 
         model.compile(loss='mean_squared_error', optimizer='sgd')
-        xs = np.array([ask1, ask2, ask3, ask4, ask5]).astype(np.float)
-        meanX = np.mean([xs])
+        xs = np.array([ask1, ask2, ask3, ask4, ask5])
+        meanX = (xs).astype(np.float)
+        meanXmean = (meanX).mean()
 
         print('Average of the X variables chosen is: ')
-        print(meanX)
+        print(meanXmean)
 
         a = 1
-        b = 1 + meanX
-        c = b + meanX
-        d = c + meanX
-        e = d + meanX
+        b = 1 + meanXmean
+        c = b + meanXmean
+        d = c + meanXmean
+        e = d + meanXmean
 
         print('Your dependent variables, using the mean of X to create the sequence (1 + mean, 2 + mean, etc:')
         print(a, b, c, d, e)
