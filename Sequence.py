@@ -17,7 +17,9 @@
 # 13:12 I have added access to the program from the main menu. The program actually took me approximately 11 hours to
 # create with clearing of number format errors, the research and experiment on getting rid of Future Warnings, and
 # the initialization of the Adam optimizer.  It does appear to be working now, however. I underestimated creation time
-# by quite a bit. 
+# by quite a bit.
+# 7/30/2019 @ 15:53 I was able to fix the path issue to the program, by reloading Anaconda and resetting the path, which
+# has now allowed me to add exception prevention to the program input.
 
 import tensorflow as tf
 from keras import optimizers
@@ -40,6 +42,11 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 # and options to the program later.
 class Predictions():
 
+
+    print('Please note that attached warning is a software Future Warning due to open source package utilization ' +
+          ' on the program application, and will not affect the use of the program at this time. Thank you for your ' +
+          'patience.')
+
     #import tensorflow.python.util.deprecation as deprecation
     #deprecation._PRINT_DEPRECATION_WARNINGS = False
 
@@ -55,14 +62,52 @@ class Predictions():
 
         print('Please enter the five number (possibly from most recent Powerball lottery pick) in sequential order')
 
-        ask1 = input(np.array('First pick:'))
-        ask2 = input(np.array('Second pick:'))
-        ask3 = input(np.array('Third pick:'))
-        ask4 = input(np.array('Fourth pick:'))
-        ask5 = input(np.array('Fifth pick:'))
+        while True:
+            try:
 
-        print('You chose as your independent set of X variables: ')
-        print(ask1 + ',' + ask2 + ',' + ask3 + ',' + ask4 + ',' + ask5)
+                ask1 = input('First pick:')
+                ask2 = input('Second pick:')
+                ask3 = input('Third pick:')
+                ask4 = input('Fourth pick:')
+                ask5 = input('Fifth pick:')
+
+                ask1 = int(ask1)
+                ask2 = int(ask2)
+                ask3 = int(ask3)
+                ask4 = int(ask4)
+                ask5 = int(ask5)
+
+            # exception handling, basically stating 'if the above previous is not true, then do this). Once a statement
+            # is made, the program brings the user back to the main menu by calling the Predictions class and menu
+            # method
+            except ValueError:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                sequ._predictions_()
+
+            if ask1 < 1 or ask1 > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                sequ._predictions_()
+
+            if ask2 < 1 or ask2 > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                sequ._predictions_()
+
+            if ask3 < 1 or ask3 > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                sequ._predictions_()
+
+            if ask4 < 1 or ask4 > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                sequ._predictions_()
+
+            if ask5 < 1 or ask5 > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                sequ._predictions_()
+
+            else:
+                # breaking the loop to avoid infinite loop
+                break
+
 
         model.compile(loss='mean_squared_error', optimizer='Adam')
         xs = np.array([ask1, ask2, ask3, ask4, ask5])
@@ -86,7 +131,7 @@ class Predictions():
         ys = (a, b, c, d, e)
 
         toContinue = input('\n' + '\n' + 'Please press 1 to continue with the sequence program, or 2 to start again.  You can press 3 ' +
-                    'to return to the lottery program main menu:')
+                           'to return to the lottery program main menu:')
 
         print(toContinue)
 
@@ -98,14 +143,59 @@ class Predictions():
             print('\n' + '\n' +'Please enter a set of five dummy numbers for our prediction model, in sequential order ' +
                       '(preferably from a recent past lottery if possible): ' + '\n')
 
-            askDummy1 = input('First number:')
-            askDummy2 = input('Second number:')
-            askDummy3 = input('Third number:')
-            askDummy4 = input('Fourth number:')
-            askDummy5 = input('Fifth number:')
+            while True:
+                try:
 
+                    askDummy1 = input('First number:')
+                    askDummy2 = input('Second number:')
+                    askDummy3 = input('Third number:')
+                    askDummy4 = input('Fourth number:')
+                    askDummy5 = input('Fifth number:')
+
+
+                    # Initiating exception prevention concerning the user input
+                    askDummy1 = int(askDummy1)
+                    askDummy2 = int(askDummy2)
+                    askDummy3 = int(askDummy3)
+                    askDummy4 = int(askDummy4)
+                    askDummy5 = int(askDummy5)
+
+                # exception handling, basically stating 'if the above previous is not true, then do this). Once a statement
+                # is made, the program brings the user back to the main menu by calling the Predictions class and menu
+                # method
+                except ValueError:
+                    print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                    sequ._predictions_()
+
+                if askDummy1 < 1 or askDummy1 > 69:
+                    print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                    sequ._predictions_()
+
+
+                if askDummy2 < 1 or askDummy2 > 69:
+                    print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                    sequ._predictions_()
+
+                if askDummy3 < 1 or askDummy3 > 69:
+                    print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                    sequ._predictions_()
+
+                if askDummy4 < 1 or askDummy4 > 69:
+                    print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                    sequ._predictions_()
+
+                if askDummy5 < 1 or askDummy5 > 69:
+                    print('\n' + '\n' + 'Please enter a number between 1 and 69. The program will start over.')
+                    sequ._predictions_()
+
+                else:
+                    # breaking the loop to avoid infinite loop
+                    break
+
+
+            # Continuing the program after exception prevention
             print('You chose the dummy numbers:')
-            print(askDummy1 + ',' + askDummy2 + ',' + askDummy3 + ',' + askDummy4 + ',' + askDummy5)
+            print(str(askDummy1) + ',' + str(askDummy2) + ',' + str(askDummy3) + ',' + str(askDummy4) + ',' + str(askDummy5))
 
             print('Please see your sequential number prediction that could possibly be used for another lottery:')
 
@@ -134,14 +224,16 @@ class Predictions():
                 Predictions()
 
             if lastChoice == '2':
-
-                import mainPage.py
+                # reference: https://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
+                import mainPage
 
 Predictions()
 
 sequ = Predictions()
 
 sequ._predictions_()
+
+
 
 
 
