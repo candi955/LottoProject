@@ -53,6 +53,9 @@ class Predictions():
     # Creating method to pull and set up 2019 lottery data and to run program
     def _predictions_(self):
 
+        # creating variable to call menu at end of program
+        sequ = Predictions()
+
         # using tensorflow and keras to process number sequences
         # passing optimizer by name keras due to import of Adam optimizer
 
@@ -206,26 +209,25 @@ class Predictions():
             # reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
             # reference for Nan prevention: https://github.com/keras-team/keras/issues/2134
 
-            if toContinue == '2':
+        if toContinue == '2':
 
-                Predictions()
+            sequ._predictions_()
 
-            if toContinue == '3':
+        if toContinue == '3':
 
-                import mainPage.py
+            import mainPage
 
-            lastChoice = input('\n' + '\n' + 'Please press 1 to return to the sequence program, or 2 to return to' +
+        lastChoice = input('\n' + '\n' + 'Please press 1 to return to the sequence program, or 2 to return to ' +
                                'the main lottery program menu:')
+        print(lastChoice)
 
-            print(lastChoice)
+        # continuing with Choice 1 from original menu
+        if lastChoice == '1':
+            sequ._predictions_()
 
-            if lastChoice == '1':
-
-                Predictions()
-
-            if lastChoice == '2':
-                # reference: https://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
-                import mainPage
+        if lastChoice == '2':
+            # reference: https://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
+            import mainPage
 
 Predictions()
 
