@@ -735,11 +735,11 @@ def Choice():
 
     if LotteryChoices == "SVM":
 
-        import SVM_MonthPredictor.py
+        import SVM_MonthPredictor
 
     if LotteryChoices == "SEQ":
 
-        import Sequence.py
+        import Sequence
 
     # ESP choice is to translate Random_Lotto_Choices.txt into Spanish on the Spanish_Random_Lotto_Choices.txt file
     if LotteryChoices == "ESP":
@@ -798,13 +798,13 @@ def Choice():
 
     # To show the user the Scatter plots and associated data from the Scatter.py.
     if LotteryChoices == "SCATTER":
-        import Scatter.py
+        import Scatter
 
         mainM.main()
 
     # To show the user the Bar charts and associated data from the Bar.py.
     if LotteryChoices == "BAR":
-        import Bar.py
+        import Bar
 
         mainM.main()
 
@@ -814,6 +814,8 @@ def Choice():
 
 
 Choice()
+
+
 
 
 
