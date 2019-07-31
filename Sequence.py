@@ -133,9 +133,7 @@ class Predictions():
         # creating dependent set of variables
         ys = (a, b, c, d, e)
 
-        toContinue = input('\n' + '\n' + 'Please press 1 to continue with the sequence program, or 2 to start again.  You can press 3 ' +
-                           'to return to the lottery program main menu:')
-
+        toContinue = input('\n' + '\n' + 'Please press 1 to continue with the sequence program.')
         print(toContinue)
 
         if toContinue == '1':
@@ -194,28 +192,22 @@ class Predictions():
                 else:
                     # breaking the loop to avoid infinite loop
                     break
-
-
-            # Continuing the program after exception prevention
-            print('You chose the dummy numbers:')
-            print(str(askDummy1) + ',' + str(askDummy2) + ',' + str(askDummy3) + ',' + str(askDummy4) + ',' + str(askDummy5))
-
-            print('Please see your sequential number prediction that could possibly be used for another lottery:')
-
-            dummyNum_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5]).astype(np.float)
-            j = model.predict(dummyNum_predict).astype(np.float)
-            print(j)
-
-            # reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
-            # reference for Nan prevention: https://github.com/keras-team/keras/issues/2134
-
-        if toContinue == '2':
-
+        else:
             sequ._predictions_()
 
-        if toContinue == '3':
+        # Continuing the program after exception prevention
+        print('You chose the dummy numbers:')
+        print(str(askDummy1) + ',' + str(askDummy2) + ',' + str(askDummy3) + ',' + str(askDummy4) + ',' + str(askDummy5))
 
-            import mainPage
+        print('Please see your sequential number prediction that could possibly be used for another lottery:')
+
+        dummyNum_predict = np.array([askDummy1, askDummy2, askDummy3, askDummy4, askDummy5]).astype(np.float)
+        j = model.predict(dummyNum_predict).astype(np.float)
+        print(j)
+
+        # reference concerning large gradients and Nan: https://stackoverflow.com/questions/33962226/common-causes-of-nans-during-training/33980220
+        # reference for Nan prevention: https://github.com/keras-team/keras/issues/2134
+
 
         lastChoice = input('\n' + '\n' + 'Please press 1 to return to the sequence program, or 2 to return to ' +
                                'the main lottery program menu:')
@@ -228,6 +220,11 @@ class Predictions():
         if lastChoice == '2':
             # reference: https://stackoverflow.com/questions/7974849/how-can-i-make-one-python-file-run-another
             import mainPage
+
+        else:
+            import mainPage
+
+
 
 Predictions()
 
