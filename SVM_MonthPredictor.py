@@ -160,6 +160,9 @@ class Predictions():
     # The _predictions_ method will be used for training and predictions
     def _predictions_(self):
 
+        # creating a variable to call program at menu at end of program running (choice 1 on the menu)
+        predictShow = Predictions()
+
         # Creating variable to convert excel file so can split data into independent (X) and dependent (y) variables
         lottoExcel = xlrd.open_workbook('PastWinningNum_SVM_Excel.xlsx')
 
@@ -312,7 +315,7 @@ class Predictions():
         # user requests Lottery Page main menu
         if menuAnswer == '3':
             # this choice takes the user to the main Lottery program page
-            import mainPage.py
+            import mainPage
 
         # user requests to exit
         if menuAnswer == '4':
