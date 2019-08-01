@@ -150,5 +150,3 @@ bar._wb4Bar_()
 bar._wb5Bar_()
 bar._rb_Bar_()
 
-
-
