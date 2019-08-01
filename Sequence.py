@@ -20,6 +20,20 @@
 # by quite a bit.
 # 7/30/2019 @ 15:53 I was able to fix the path issue to the program, by reloading Anaconda and resetting the path, which
 # has now allowed me to add exception prevention to the program input.
+# Had a ton of problems when I moved the program to another computer; I had to reinstall tensor and keras for anaconda.
+# I also ended up having to try the command conda clean --all due to erroneous tensorflow file. I went in and manually
+# deleted my tensorflow files by following the path of the error message. Then I installed tensorflow with the
+# following link (for beginners) and resource:
+# conda create -n tf tensorflow
+# conda activate tf
+# https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/
+# for advanced is as follows, but I didn't install this one:
+# conda create -n tf-gpu tensorflow-gpu
+# conda activate tf-gpu
+# Keras installation gave me trouble too. I found the following command that worked:
+# conda install -c hesi_m keras
+# https://github.com/keras-team/keras/issues/9984
+
 
 import tensorflow as tf
 from keras import optimizers
@@ -231,9 +245,4 @@ Predictions()
 sequ = Predictions()
 
 sequ._predictions_()
-
-
-
-
-
 
