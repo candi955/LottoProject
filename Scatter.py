@@ -399,6 +399,9 @@ class Regression():
         print(results.summary())
 
 
+Regression()
+
+
 
 # To show all ScatterPlots and OLS Regression Results when called from mainPage.py
 
@@ -412,5 +415,4 @@ show._wb3Reg_()
 show._wb4Reg_()
 show._wb5Reg_()
 show._RB_Reg_()
-
 
