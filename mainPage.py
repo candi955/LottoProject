@@ -1,4 +1,20 @@
-to each file, prior to calling the classes/methods.  This ensures that something
+# The main page for the lottery number and prediction program, Project_3_APIs
+# Utilizing the textblob API, and also an import of the inbuilt random function
+
+# 7/11/2019 @ 13:31 I just started the project.  I estimate this project
+# of adding three API's to take approximately 9 hours when it's all said and done. I have one TextBlob API implemented
+# already (the Common Numbers, pulling random TextBlob words from the lists CommonRedBallNumbers.txt and
+# CommonWhiteBallNumbers.txt. I am still choosing my other two API implementation from the TextBlob library
+# right now.
+# @17:08 I have completed my Spanish translation to the text file Spanish_Random_Choices.txt, utilizing the
+# TextBlob library. I am now going to create a separate menu choice for Instructions, in both Spanish and English,
+# in its own class so I can call it.  I also need to update all of the menu choices in Spanish.
+# @ 21:14 I took approximately two hours break today overall.  So far the project has taken approximately 6 hours.
+# At this time my instructions and menus look good.  I had to fix an error that was being caused when there was
+# nothing on the text files; the translation to Spanish from the other files to the Spanish_Random_Lotto_Choices.txt
+# was having trouble when the other files were blank.  I attempted to use import os(ex: os.remove('example.txt'), but
+# this also caused issues. It caused the files to erase completely and interrupted the entire program.
+# Instead I have created a appendText to each file, prior to calling the classes/methods.  This ensures that something
 # is at least on the file at all times when the classes/methods are called, so that there is not an issue with nothing
 # being there to translate. Eventually I'd like to learn how to clear a file, and how to instruct the program on
 # when to know a file is blank and stop attempting to translate.  For now, however, the program works.
@@ -799,7 +815,7 @@ def Choice():
         mainM.main()
 
     if LotteryChoices == "PRED":
-        import Torch_Pred
+        import Torch_Pred       
 
     else:
         print("Incorrect entry. Please try again. / Entrada incorrecta. Inténtalo de nuevo..")
