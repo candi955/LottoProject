@@ -1,0 +1,167 @@
+ith PyTorch
+# Attempting to create a dataset which will generally follow a linear pattern
+# Will declare a line, a linear model, with a random set of parameters, which will most likely incorrectly
+# fit the dataset. Then will try to make use of an optimization procedure called gradient descent, utilized in
+# many Machine Learning (ML) algorithms. The optimization will minimize the error of the linear model. It will keep
+# doing this until the model is trained to fit the data.
+
+# Attempting to declare a linear model, and use it to make predictions
+# Declaring variables w and b.
+# Equation of line is y = w*x + b (w is the slope(the weight), b is the bias turn, which are the parameters that
+# distinguish the linear line, and ultimately with linear regression provided with a lot of data points.. will
+# have linear model that doesn't fit the data well, will use the data points to train the linear model to have the
+# optimal weight and bias values. This will eventually provide the program with the line of best fit. After training
+# the model to have suitable parameters, given inputs, x, the linear model can then be used to make a prediction, y.
+
+# 7/31/2019@01:11am, I am having trouble getting the Pytorch module to install.  In fact, I've installed it several
+# time but it still states it hasn't installed.  Per research, currently I'm trying:
+# python -m pip install --upgrade pip
+# Also trying:
+# conda update conda
+# References:https://github.com/pytorch/pytorch/issues/4827
+# https://discuss.pytorch.org/t/issues-installing-pytorch-for-os-x-with-conda/11496
+# 6:07am torch.tensor not working, going to attempt to correct issue by loading old torch version:
+# conda install pytorch=0.4.1 cuda90 -c pytorch
+# Resource: https://pytorch.org/get-started/previous-versions/
+# 13:24pm Attempting to install PyTorch again with the following link from the PyTorch page, based on
+# utilizing Windows, Anaconda (Conda), Python 3.7, and going to try Cuda, due to am told the software will be
+# downloaded with the install, and is good for Neural Networks.  Not sure if will work due to me not having a
+# GPU though.  If not will uninstall later.
+# conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+# Reference:
+# https://deeplizard.com/learn/video/UWlFM0R_x6I
+# I included Cuda 9.0 as part of my install link from the PyTorch page, will see if it works.
+# 13:25 It's giving me trouble, am going to try the link without Cuda:
+# conda install pytorch-cpu torchvision-cpu -c pytorch
+# looks like is some sort of http error.  I might try again with the Cuda one.
+# 13:28 It looks like my computer, for reasons unknown to me, had switched to airplane mode.  Connected wifi again.
+# 19:51 The long length of time it took to do this was mostly figuring errors and download issues.  They weren't
+# fun lessons but good lessons. My page is done, and I figured out that I needed to reload Anaconda fresh,
+# create a new path, and then install the Pytorch link in the terminal from their website for
+# Windows Anaconda Python 3.7 without Cuda. Of course I'm sure some of this is particular to my own laptop
+# right now. It took about 13 hours total with the long download times.  The actual typing and figuring out
+# the code, I'd cut about 7 hours off of that timeframe to 6 hours (to figure out floats, arrays,
+# torch.tensor versus torch.Tensor, etc).
+# 8/6/2019 @ 7:40am I am moving this program from another one, to this project, to eventually add to the menu.
+# I am attempting to install Pytorch right now.  Pip install torch seemed to show an error.
+# 7:47 am Pytorch was installed utilizing Settings, Interpreter, then adding package Pytorch.  
+# I am going to fix the introductory sentence to two lines so it shows up on the screen.
+# I'm going to add the Pytorch to my main menu now, and will have the menu call it using PRED.
+# It also looks like this program doesn't require the import of numpy at this time.  I must have accidently left it
+# there when I was using the graph.  I'm going to remove that import statement.
+
+
+import torch
+import random
+import matplotlib.pyplot as plt
+
+class Predict():
+
+    def _linearPrediction_(self):
+
+        # creating variable to call methods from the Predict() class for menu statements
+        pred = Predict()
+
+        # requesting White Ball number inputs from the user
+        print('\n' + '\n' + 'Please enter your inputs of what you think the first two White Ball lottery ' +
+              'numbers will be, so that program can make a prediction of what the last three\n ' +
+              'numbers will be, by utilizing linear regression methods for the prediction:' + '\n')
+
+        # Gaining user input for tensor x values, while attempting exception handling
+        while True:
+            try:
+                firstNum = input('First number: ')
+                secondNum = input('Second number: ')
+
+                # setting numbers to floats for later calculations
+                # also making sure that numbers are between 1 and 69 for lottery purposes, via the random
+                # function and also a while loop for exception prevention
+                rNum = float(random.randint(1, 70))
+                firstNum = float(firstNum)
+                secondNum = float(secondNum)
+
+            # exception handling, basically stating 'if the above previous is not true, then do this). Once a statement
+            # is made, the program brings the user back to the main menu by calling the Predictions class and menu
+            # method
+            except ValueError:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
+                pred._linearPrediction_()
+
+            # Do not need to include the random dummy number in the exception, as random number is set for
+            # greater than zero and less than 70 (for the White Ball number count).
+
+            if firstNum < 1 or firstNum > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
+                pred._linearPrediction_()
+
+            if secondNum < 1 or secondNum > 69:
+                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
+                pred._linearPrediction_()
+
+            else:
+
+                print("\n" + "\n" + "Following are all of the parameters: ")
+
+                # declaring the parameters of the linear line: w (slope, or weight) b (bias, or turn)
+                # tensors with gradients for training so can eventually reach optimal linear values
+                w = torch.tensor([3.0], requires_grad=True)
+                b = torch.tensor([1.0], requires_grad=True)
+
+                # After training the model to obtain suitable parameters, will give the input tensors (x), then
+                # the y prediction of possible other three lottery numbers (within the total five number count, aside
+                # from the previously chosen x inputs by the user
+                x = torch.tensor([[rNum], [firstNum], [secondNum]])
+                print("\n" + "\n" + "The two number lottery inputs and the random dummy number, that are going to use to predict " +
+                "our final three lottery numbers: ")
+                print(x)
+
+                # Obtaining y in the equation of the straight line to obtain our last three lottery number prediction
+                y = w*x+b
+                print("\n" + "\n" + "Our final three numbers: ")
+                print(y)
+
+                print("\n" + "\n" + "Please see the attached line graph showing the equation of our lottery pick and predictions." +
+                      "\n" + "\n")
+
+                # creating graph to show linear regression using numpy and matplotlib
+                # reference: https://scriptverse.academy/tutorials/python-matplotlib-plot-straight-line.html
+
+                rNum = float(rNum)
+                firstNum = float(firstNum)
+                secondNum = float(secondNum)
+
+                # splitting the y tensors into three variables
+                (var1, var2, var3) = y
+
+                # attempting to plot the chart
+                plt.ylim = (0, 300)
+                plt.xlim = (0, 300)
+                plt.plot((rNum, firstNum, secondNum), (var1, var2, var3), '-r', label='y = wx + b')
+                plt.title('Graph of y = wx + b')
+                plt.xlabel('x (input numbers)', color='#1C2833')
+                plt.ylabel('y(predictions)', color='#1C2833')
+                plt.legend(loc='upper left')
+                plt.grid()
+                plt.show()
+
+                # creating an end-of-program menu loop
+                tryAgain = input("Type 1 to start over, or 2 to quit the program.")
+                print(tryAgain)
+
+                while True:
+
+                    if tryAgain == "1":
+                        pred._linearPrediction_()
+
+                    if tryAgain == "2":
+                        exit()
+                    else:
+                        pred._linearPrediction_()
+
+
+Predict()
+
+
+pred = Predict()
+
+pred._linearPrediction_()
