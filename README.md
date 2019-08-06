@@ -3,9 +3,9 @@
 # within all of the program header notes.  It's basically a lottery prediction program, with various menus that have different
 # ways to look at lottery numbers.  It is based off of the winning AZ Powerball numbers from January until July 2019; a very
 # small set of data.  However, this was due to the time constraints of the due date on the school project.  
-# There were also many different APIs utilized.  There are a few programs that, in reality, I might have chosen a different way
+# There were also many different APIs utilized.  There are a few files that, in reality, I might have chosen a different way (API)
 # to implement them.  However, as this program was built over the period of a school course, the course often required me to show
-# the ability to utilize particular APIs, and thus they are now included within my project, to sometimes perform seemingly random 
+# the ability to utilize particular APIs, which thus are now included within my project, to sometimes perform seemingly random 
 # tasks.  Although I utilized referenced projects online and from books and websites to create this, I attempted to update all the 
 # code by adding User-Input, menus, and pulling my data from homemade data sources.  Basically, I attempted to individualize 
 # everything.  I'm hoping if anybody else is ever attempting the same thing with their code, that they might be able to utilize this
