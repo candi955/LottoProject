@@ -35,24 +35,8 @@
 # utilizing AI 5) Make sure Frequent numbers go on Spanish list.
 # 7/27/2019 @ 14:57 Throughout this week I have added menus for the SVM_MonthPredictor.py, Scatter.py, and
 # Bar.py, utilizing SVM, SCATTER, and BAR as menu choices to do so.
-# Had to fix path when moved project to new computer
-#interpreter:
-# Python 3.7 (2) C:\Users\Hachidori\AnacondaOriginalDownload\AnacondaDownload1Aug2019\pythonw.exe
-# structure:
-# C:\Users\Hachidori\PycharmProjects\Lottery
-# For Sequence.py page I also had to do more reinstalls.  Following are the resources:
-# # I also ended up having to try the command conda clean --all due to erroneous tensorflow file. I went in and manually
-# # deleted my tensorflow files by following the path of the error message. Then I installed tensorflow with the
-# # following link (for beginners) and resource:
-# # conda create -n tf tensorflow
-# # conda activate tf
-# # https://docs.anaconda.com/anaconda/user-guide/tasks/tensorflow/
-# # for advanced is as follows, but I didn't install this one:
-# # conda create -n tf-gpu tensorflow-gpu
-# # conda activate tf-gpu
-# # Keras installation gave me trouble too. I found the following command that worked:
-# # conda install -c hesi_m keras
-# # https://github.com/keras-team/keras/issues/9984
+# 8/6/2019 @ 8:23am I added the Pytorch number prediction project on file Torch_Pred.py to the project, and also
+# added it under the choice PRED to the main menu.
 
 import random
 from textblob import TextBlob
@@ -359,7 +343,8 @@ class Instructions():
                            "SVM - to try the SVM and KNN algorithm to " +
                            "predict the month numbers will be chosen" + "\n" +
                            "SCATTER - for PowerBall Scatter Plot charts and associated data" + "\n" +
-                           "BAR - for PowerBall Bar charts and associated data" + "\n" + "\n" +
+                           "BAR - for PowerBall Bar charts and associated data" + "\n" +
+                           "PRED - to enter two White Ball numbers and predict the last three in the set\n\n" +
                            "MN - to go to the Main Menu / Para ir al menu principal"  "\n" + "\n" +
                            "               *** Please note that if you wish to receive different numbers for any of " +
                            "the offered choices, you must restart the game ***" + "\n" + "\n" +
@@ -406,7 +391,8 @@ class Instructions():
                            "SVM - to try the SVM and KNN algorithm to " +
                            "predict the month numbers will be chosen" + "\n" +
                            "SCATTER - for PowerBall Scatter Plot charts and associated data" + "\n" +
-                           "BAR - for PowerBall Bar charts and associated data" + "\n" + "\n" +
+                           "BAR - for PowerBall Bar charts and associated data" + "\n" +
+                           "PRED - to enter two White Ball numbers and predict the last three in the set\n\n" +
                            "MN - to go to the Main Menu / Para ir al menu principal"  "\n" + "\n" +
                            "               *** Please note that if you wish to receive different numbers for any of " +
                            "the offered choices, you must restart the game ***" + "\n" + "\n" +
@@ -719,6 +705,8 @@ def Choice():
                                " Para PowerBall Scatter Plot chart y datos asociados" + "\n" +
                                "BAR - for PowerBall Bar charts and associated data / para gráficos de barras " +
                                "PowerBall y datos asociados" + "\n" + "\n" +
+                               "PRED - to enter two White Ball numbers and predict the last three in the set / " +
+                               "para ingresar dos números de White Ball y predecir los últimos tres en el set" +
                                "MN - to go to the Main Menu / Para ir al menu principal"  "\n" + "\n" +
                                "Enter your choice here / Ingresa tu elección aquí: "))
 
@@ -826,9 +814,17 @@ def Choice():
 
         mainM.main()
 
+    if LotteryChoices == "PRED":
+        import Torch_Pred
+
+        mainM.main()
+
     else:
         print("Incorrect entry. Please try again. / Entrada incorrecta. Inténtalo de nuevo..")
         mainM.main()
 
 
 Choice()
+
+
+
