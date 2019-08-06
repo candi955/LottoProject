@@ -1,4 +1,4 @@
-ith PyTorch
+# Lottery number prediction project utilizing Pytorch
 # Attempting to create a dataset which will generally follow a linear pattern
 # Will declare a line, a linear model, with a random set of parameters, which will most likely incorrectly
 # fit the dataset. Then will try to make use of an optimization procedure called gradient descent, utilized in
@@ -44,11 +44,19 @@ ith PyTorch
 # torch.tensor versus torch.Tensor, etc).
 # 8/6/2019 @ 7:40am I am moving this program from another one, to this project, to eventually add to the menu.
 # I am attempting to install Pytorch right now.  Pip install torch seemed to show an error.
-# 7:47 am Pytorch was installed utilizing Settings, Interpreter, then adding package Pytorch.  
+# 7:47 am Pytorch was installed utilizing Settings, Interpreter, then adding package Pytorch.
 # I am going to fix the introductory sentence to two lines so it shows up on the screen.
 # I'm going to add the Pytorch to my main menu now, and will have the menu call it using PRED.
 # It also looks like this program doesn't require the import of numpy at this time.  I must have accidently left it
 # there when I was using the graph.  I'm going to remove that import statement.
+# 12:22 pm Still difficulty installing torch and torchvision. The following command didn't work:
+# conda install pytorch-cpu torchvision-cpu -c pytorch
+# It stated with an error: EnvironmentNotWritableError: The current user does not have write permissions to the target
+# environment.
+# Instead I changed project to new page entirely, renamed it from Project 3APIs to LottoProject, and installed
+# torch and torchvision successfully utilizing the following commands:
+# pip3 install https://download.pytorch.org/whl/cpu/torch-1.1.0-cp37-cp37m-win_amd64.whl
+# pip3 install https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp37-cp37m-win_amd64.whl
 
 
 import torch
@@ -145,7 +153,8 @@ class Predict():
                 plt.show()
 
                 # creating an end-of-program menu loop
-                tryAgain = input("Type 1 to start over, or 2 to quit the program.")
+                tryAgain = input("Type 1 to start over, or 2 to return to the main program menu, or 3 to quit the "+
+                                 "program.")
                 print(tryAgain)
 
                 while True:
@@ -154,7 +163,11 @@ class Predict():
                         pred._linearPrediction_()
 
                     if tryAgain == "2":
+                        import mainPage
+
+                    if tryAgain == "3":
                         exit()
+
                     else:
                         pred._linearPrediction_()
 
