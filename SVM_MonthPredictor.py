@@ -94,9 +94,22 @@
 # (1 is Jan, 2 is Feb, etc), which is Jan-July 2019. Independent variable source will be lottery balls, and
 # dependent variable source will be the months(1-7), which is the target data.
 # From my best understanding, the way the dataset is formatted is called a multi-class set
+# 8/16/2019 @ 14:05pm I was late in entering my diary work for this project.  However I will post the timeline of
+# occurrences as best as possible. I became very caught up in the project once it started working.
+# I had been playing with various APIS, and at approximately 1:30am on 8/15/2019, I decided that I thought I could
+# make the Tkinter GUI work with my program.  It did take approximately 8 hours in total, and took quite a bit of
+# Google research between code-comparisons of the example-code provided in class.  However, I now have a functional
+# GUI program that mirrors the non-GUI version.  It has a window with 3 tabs and frames within each tab.
+# The tabs signify via label which part of the program the user is in, and provides instructions on how to run
+# the program.  The initial tab is the dataset utilized to gather training data for the SVM machine learning model.
+# The second tab has a button with which the user can click and see the prediction accuracy of this current model.
+# The third tab allows the user to enter their 5 dummy White Ball lottery numbers, and then click a button which allows
+# for prediction of what month it is likely for those numbers to be winning lottery (AZ Powerball) balls.
+# The program has a 'close and go to program main menu' button on the first tab, and also an 'exit the entire program'
+# button on the same tab.  It also has error checking and exception prevention for the third tab user-entries. An
+# error message box pops up to explain to the user how to possibly correct the error, and then the dummy textboxes
+# are cleared and focus brought back to the dummy number box #1.
 
-# Attempting to add SVM model as GUI
-# Code is working!
 
 # Libraries
 import tkinter as tk
@@ -149,7 +162,7 @@ knn = KNeighborsClassifier(n_neighbors=1)
 knn.fit(X, y)
 ###################################################################################################################
 root = tk.Tk()
-root.title('Lottery Prediction Project')
+root.title('SVM Prediction (predicting the month a set of dummy lottery numbers will win)')
 #root.geometry("1000x1000")
 style = ttk.Style(root)
 style.configure('lefttab.TNotebook', tabposition='wn')
