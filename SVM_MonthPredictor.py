@@ -88,6 +88,24 @@
 # 02:25 I was surprised when I transferred the program to my main Lottery project, there were so many errors.
 # It took me quite a while to revamp everything, but it all seems to be working well now.
 # So far I estimate the program to have taken me about 17 hours to complete.
+
+# Additional information about this module and how it works:
+# The dataset will be lottery numbers WB1, WB2, WB3, WB4, WB5, in columns, with target dataset by months of draw
+# (1 is Jan, 2 is Feb, etc), which is Jan-July 2019. Independent variable source will be lottery balls, and
+# dependent variable source will be the months(1-7), which is the target data.
+# From my best understanding, the way the dataset is formatted is called a multi-class set
+
+# Attempting to add SVM model as GUI
+# Code is working!
+
+# Libraries
+import tkinter as tk
+from tkinter import *
+from tkinter import messagebox
+
+# Window Tabs Libraries
+from tkinter import ttk
+from tkinter.scrolledtext import *
 from sklearn import svm
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
@@ -95,241 +113,235 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 import xlrd
+
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-    # Creating a class for the DataSet
-    # The dataset will be lottery numbers WB1, WB2, WB3, WB4, WB5, in columns, with target dataset by months of draw
-    # (1 is Jan, 2 is Feb, etc), which is Jan-July 2019. Independent variable source will be lottery balls, and
-    # dependent variable source will be the months(1-7), which is the target data.
-    # From my best understanding, the way the dataset is formatted is called a multi-class set
+# pulling excel file and creating variable
+lottoExcel = xlrd.open_workbook('PastWinningNum_SVM_Excel.xlsx')
+# Creating variable to convert excel file to a dataframe (using pandas)
+sheets = lottoExcel.sheets()
+for sheet in sheets:
+    lottoSheetData = np.array([[sheet.cell_value(r, c) for c in range(sheet.ncols)] for r in range(sheet.nrows)])
+    #lottoSheetData_DataFrame = pd.DataFrame(lottoSheetData)
+    # print('\n' + '\n' + 'LottoSheet Data, DataFrame(excel) format:')
+    # print(lottoSheetData_DataFrame)
+# creating dataframe for tkinter
+df = pd.DataFrame(lottoSheetData)
 
-class DataSet():
+sources = lottoSheetData[:, :-2]
+target = lottoSheetData[:, len(lottoSheetData[0]) - 1]
 
-    # Creating a lottoSVM prediction method to predict success of predicting the dependent y variable
-    def _dataset_(self):
+sourceNoHeader = np.delete(sources, (0), axis=0)
+targetNoHeader = np.delete(target, (0), axis=0)
 
-        # Creating variable to convert excel file to a dataframe, so can split data into independent (X) and
-        # dependent (y) variables
-        lottoExcel = xlrd.open_workbook('PastWinningNum_SVM_Excel.xlsx')
+X = sourceNoHeader
+y = targetNoHeader
 
-        # Creating variable to convert excel file to a dataframe (using pandas)
-        sheets = lottoExcel.sheets()
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=50)
 
-        for sheet in sheets:
-            lottoSheetData = np.array([[sheet.cell_value(r, c) for c in range(sheet.ncols)] for r in range(sheet.nrows)])
-            lottoSheetData_DataFrame = pd.DataFrame(lottoSheetData)
-            print('\n' + '\n' + 'LottoSheet Data, DataFrame(excel) format:')
-            print(lottoSheetData_DataFrame)
+model = svm.SVC(kernel='linear')
+model.fit(X_train, y_train.ravel())
+y_pred = model.predict(X_test)
 
-        # Identifying (and splitting) source variables (independent variables) and the target variable (dependant
-        # variable)source - is to create a variable of the Independent X data, with [:, :-2] meaning all columns but the
-        # last two (Red Balls{different ball count than White Balls} and Target data).
-        # target - is to create a variable for the last column, the Dependent data, with [:, len(lottoSheetData[0])-1]
-        # meaning the last column
-        # resource: http://www.semspirit.com/artificial-intelligence/machine-learning/preparing-the-data/preparing-the-data-in-python/separating-source-and-target-variables/
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(X, y)
+###################################################################################################################
+root = tk.Tk()
+root.title('Lottery Prediction Project')
+#root.geometry("1000x1000")
+style = ttk.Style(root)
+style.configure('lefttab.TNotebook', tabposition='wn')
 
-        sources = lottoSheetData[:, :-2]
-        target = lottoSheetData[:, len(lottoSheetData[0])-1]
+# Tabs and Frames
+tab_control = ttk.Notebook(root)
+tab1 = ttk.Frame(tab_control)
+tab2 = ttk.Frame(tab_control)
+tab3 = ttk.Frame(tab_control)
+tab_control.add(tab1, text='Dataset')
+tab_control.add(tab2, text='Prediction Accuracy')
+tab_control.add(tab3, text='Dummy Values and Prediction')
 
-        # Attempting to turn sources and target variables into format that can be used for SVM purposes, and skip
-        # the headers (these will be the actual variables I use for source and target within the program)
+tab_control.pack(expand=1, fill='both')
 
-        print('\n' + '\n' + 'Preparing lotto dataset to use for SVM program:')
-        sourceNoHeader = np.delete(sources, (0), axis=0)
-        targetNoHeader = np.delete(target, (0), axis=0)
+###################################################################################################################
 
-        print('\n' + '\n' + 'Source variables in dataframe format without the headers:')
-        print(sourceNoHeader)
-        print('\n' + '\n' + 'Target variables in dataframe format without the header:')
-        print(targetNoHeader)
+def writeDataset():
+    tab1_display.insert(1.0, pd.DataFrame(df))
+def writeAccuracy():
+    tab2_display.insert(4.0, str(accuracy_score(y_test, y_pred)))
 
-        # printing data shapes
-        print('\n' + '\n' + 'Shape of source data (rows, columns):')
-        print(sourceNoHeader.shape)
-        print('\n' + 'Shape of target data (rows, columns):')
-        print(targetNoHeader.shape)
+def dummyValues():
+    while True:
+        try:
 
-        # Calling the _svm_menu method from the Predictions class
-        predictShow._svm_menu_()
+            # getting user-input for dummy numbers to be used in the algorithm; preferably the most recent
+            # lottery numbers
+            dummyTextOne = dummyNumberOne.get('1.0', tk.END)
+            dummyTextTwo = dummyNumberTwo.get('1.0', tk.END)
+            dummyTextThree = dummyNumberThree.get('1.0', tk.END)
+            dummyTextFour = dummyNumberFour.get('1.0', tk.END)
+            dummyTextFive = dummyNumberFive.get('1.0', tk.END)
 
-DataSet()
+            # changing dummy numbers to integers for algorithm processing
+            dummyValues.dummyTextOne = int(dummyTextOne)
+            dummyValues.dummyTextTwo = int(dummyTextTwo)
+            dummyValues.dummyTextThree = int(dummyTextThree)
+            dummyValues.dummyTextFour = int(dummyTextFour)
+            dummyValues.dummyTextFive = int(dummyTextFive)
 
-class Predictions():
-
-    # The _predictions_ method will be used for training and predictions
-    def _predictions_(self):
-
-        # creating a variable to call program at menu at end of program running (choice 1 on the menu)
-        predictShow = Predictions()
-
-        # Creating variable to convert excel file so can split data into independent (X) and dependent (y) variables
-        lottoExcel = xlrd.open_workbook('PastWinningNum_SVM_Excel.xlsx')
-
-        # Converting excel to dataframe format
-        sheets = lottoExcel.sheets()
-        for sheet in sheets:
-            lottoSheetData = np.array([[sheet.cell_value(r, c) for c in range(sheet.ncols)] for r in range(sheet.nrows)])
-
-        # Creating variables to show data in array format and printing
-        # Took last two rows away from the source, so that Red Ball and Target are not mixed into the Independent
-        # source variable, or X variable, at this time (in this particular program is the White Ball number being
-        # predicted, which is from a different count (1-69), than the Red Balls(1-26).
-        sources = lottoSheetData[:, :-2]
-        target = lottoSheetData[:, len(lottoSheetData[0])-1]
-
-        # Attempting to turn sources and target variables into format that can be used for SVM purposes, and skip
-        # the headers (these will be the actual variables I use for source and target within the program)
-        sourceNoHeader = np.delete(sources, (0), axis=0)
-        targetNoHeader = np.delete(target, (0), axis=0)
-
-        # Turning our independent source variable (White Balls) into the X variable, and our dependent target
-        # variable (months of the year, Jan-Jul 2019) into the y variable
-        X = sourceNoHeader
-        y = targetNoHeader
+        # exception handling, basically stating 'if the above previous is not true, then do this). Once a statement
+        # is made, the program brings the user back to the main menu by calling the Predictions class and menu
+        # method
+        except ValueError:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
 
-        # Beginning our Test_Train_Split
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=50)
 
-        # the below variable is set to linear because we are going to build a linear hyperplane for our problem
-        model = svm.SVC(kernel='linear')
+        if dummyValues.dummyTextOne < 1 or dummyValues.dummyTextOne > 69:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
-        # fit the model and pass in parameters (the X_train independent variable and dependent variable y_train)
-        # added ravel due to Future Warning: 'continuous' error
-        model.fit(X_train, y_train.ravel())
 
-        # setting predictions to be based on the test dataset, therefore can check the accuracy
-        # placing inside independent and dependent test variables, to compare the predicted outcome
-        # using predict function
-        y_pred = model.predict(X_test)
+        if dummyValues.dummyTextTwo < 1 or dummyValues.dummyTextTwo > 69:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
-        # displaying the accuracy of prediction (in decimal format, which will need converted to percentage)
-        print('\n' + '\n' + 'Prediction accuracy:' + '\n' + '\n')
-        print(accuracy_score(y_test, y_pred))
+        if dummyValues.dummyTextThree < 1 or dummyValues.dummyTextThree > 69:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
-        # now that data is collected, it needs to be cleaned up, then can train/test data then split into training and
-        # testing subsets then can count with accuracy
+        if dummyValues.dummyTextFour < 1 or dummyValues.dummyTextFour > 69:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
-        # make an instance of the model (knn variable will stand for k nearest neighbor)
-        knn = KNeighborsClassifier(n_neighbors=1)
+        if dummyValues.dummyTextFive < 1 or dummyValues.dummyTextFive > 69:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
-        # fit the model (with dependent and independent variables X and y as arguments)
-        knn.fit(X, y)
+        else:
+            # breaking the loop to avoid infinite loop
+            break
 
-        # training is complete, now predictions will be set up
-        # dummy values will be placed in a variable as a numpy array
-        # side note: you can change n_neighbors and random_state if indicated)
+def finalPrediction():
 
-        # prompting user input for dummy values
-        print('\n' + '\n' + 'Please enter dummy values (between numbers 1 and 69 for our prediction:' + '\n')
+    while True:
+        try:
+            #calling dummy values function to call variables from that function
+            dummyValues()
+            # turning the dummy values, which were string then integer, back into an array for the prediction
+            a = np.array([dummyValues.dummyTextOne, dummyValues.dummyTextTwo, dummyValues.dummyTextThree,
+                          dummyValues.dummyTextFour, dummyValues.dummyTextFive])
 
-        # Exception handling with While Try loop and If and Else statements, with a break (to prevent strings, and
-        # numbers outside of the White Ball lottery range of 1-69).
-        while True:
-            try:
+            # inserting dummy array variable as argument to K-nearest neighbor algorithm to create prediction, which is
+            # placed within the prediction variable
+            prediction = knn.predict([a])
+            tab3_display.insert(4.0, prediction)
+        except ValueError:
+            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
+            root.after(500, clear_display_result())
 
-                # gathering user input of dummy values
-                user1 = input('Dummy value 1:')
-                user2 = input('Dummy value 2:')
-                user3 = input('Dummy value 3:')
-                user4 = input('Dummy value 4:')
-                user5 = input('Dummy value 5:')
+        else:
+            break
 
-                # changing user input to integer format from str, for if statements in exception handling, and also
-                # to convert for later formula requirments within the prediction model
-                user1 = int(user1)
-                user2 = int(user2)
-                user3 = int(user3)
-                user4 = int(user4)
-                user5 = int(user5)
+def clear_display_result():
+    tab3_display.delete(1.0, END)
+    dummyNumberOne.delete(1.0, END)
+    dummyNumberTwo.delete(1.0, END)
+    dummyNumberThree.delete(1.0, END)
+    dummyNumberFour.delete(1.0, END)
+    dummyNumberFive.delete(1.0, END)
 
-            # exception handling, basically stating 'if the above previous is not true, then do this). Once a statement
-            # is made, the program brings the user back to the main menu by calling the Predictions class and menu
-            # method
-            except ValueError:
-                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
-                predictShow._svm_menu_()
+    dummyNumberOne.focus()
 
-            if user1 < 1 or user1 > 69:
-                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
-                predictShow._svm_menu_()
+def mainMenu():
 
-            if user2 < 1 or user2 > 69:
-                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
-                predictShow._svm_menu_()
+    while True:
+        try:
+            # placing this as example, since this module will be moved to another program and menu module will need changed
+            if messagebox.askokcancel("Quit", "Do you want to quit?"):
+                root.destroy()
+                root.protocol("WM_DELETE_WINDOW", mainMenu)
+                import mainPage
 
-            if user3 < 1 or user3 > 69:
-                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
-                predictShow._svm_menu_()
-
-            if user4 < 1 or user4 > 69:
-                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
-                predictShow._svm_menu_()
-
-            if user5 < 1 or user5 > 69:
-                print('\n' + '\n' + 'Please enter a number between 1 and 69.')
-                predictShow._svm_menu_()
-
-            else:
-                # breaking the loop to avoid infinite loop
-                break
-
-        # turning the dummy values, which were string then integer, back into an array for the prediction
-        a = np.array([user1, user2, user3, user4, user5])
-
-        # displaying user-chosen dummy values
-        print('\n' + '\n' + 'Dummy values for knn prediction:')
-        print(a)
-
-        # inserting dummy array variable as argument to K-nearest neighbor algorithm to create prediction, which is
-        # placed within the prediction variable
-        prediction = knn.predict([a])
-        print('\n' + '\n' + 'The month (between January and July) that your numbers are predicted to be drawn is:')
-
-        # printing the prediction
-        print(prediction)
-
-        # utilizing Predictions class, _svm_menu_ method to bring user back to the main menu
-        predictShow._svm_menu_()
-
-    # Creating a menu method
-    def _svm_menu_(self):
-        # Creating variable to call method from DataSet class(), _dataset_ method, for when the user requests to see
-        # the data again on the main menu
-        callingDataSet = DataSet()
-
-        # getting the user input as to which choice he/she would like to make within the main menu
-        menuAnswer = input('\n' + '\n' + 'Please enter 1 to make a prediction, 2 to see the datasets ' +
-                                 'again, 3 to return to the Lottery Page main menu, or 4 to exit: ')
-
-        # user requests to try a prediction again
-        if menuAnswer == '1':
-            predictShow._predictions_()
-
-        # user requests to see datasets
-        if menuAnswer == '2':
-            # creating variable to go to call methods from the DataSet class
-            callingDataSet._dataset_()
-
-        # user requests Lottery Page main menu
-        if menuAnswer == '3':
-            # this choice takes the user to the main Lottery program page
+        except ValueError:
             import mainPage
+        else:
+            break
 
-        # user requests to exit
-        if menuAnswer == '4':
-            exit()
+def exitProgram():
+    exit()
 
-Predictions()
+def flush(self):
+    pass
+###################################################################################################################
+# Labels for tabs
+l1 = Label(tab1, text='Please click the button below to scroll through the original dataset model.', padx=5, pady=5)
+l1.grid(row=1, column=0)
+l2 = Label(tab2, text='Please click the button below to see the prediction accuracy of the model in decimal ' +
+                      'format.', padx=5, pady=5)
+l2.grid(row=1, column=0)
+l3 = Label(tab3, text='Please enter five dummy numbers in the cells below,\n and then click the Prediction button to ' +
+                      'see your prediction results:', padx=5, pady=5)
+l3.grid(row=1, column=0)
+
+l3Error = Label(tab3, text='Error message:', padx=5, pady=5)
+l3Error.grid(row=2, column=3)
 
 
-# Start of program
-# Calling the program methods to function
-# creating variables to call class methods
-dataShow = DataSet()
-predictShow = Predictions()
+# Dummy Number Input Boxes
+dummyNumberOne = ScrolledText(tab3, height=1)
+dummyNumberOne.grid(row=2, column=0, columnspan=1, padx=5, pady=5)
+dummyNumberTwo = ScrolledText(tab3, height=1)
+dummyNumberTwo.grid(row=3, column=0, columnspan=1, padx=5, pady=5)
+dummyNumberThree = ScrolledText(tab3, height=1)
+dummyNumberThree.grid(row=4, column=0, columnspan=1, padx=5, pady=5)
+dummyNumberFour = ScrolledText(tab3, height=1)
+dummyNumberFour.grid(row=5, column=0, columnspan=1, padx=5, pady=5)
+dummyNumberFive = ScrolledText(tab3, height=1)
+dummyNumberFive.grid(row=6, column=0, columnspan=1, padx=5, pady=5)
 
-# calling class methods for DataSet and Predictions classes
-dataShow._dataset_()
-predictShow._predictions_()
+# Dataset Button
+datasetButton = Button(tab1, text='Dataset', command=writeDataset, width=12, bg='purple', fg='#fff')
+datasetButton.grid(row=3, column=0, padx=15, pady=15)
+
+# Accuracy Button
+AccuracyButton = Button(tab2, text='Prediction Accuracy', command=writeAccuracy, width=20, bg='purple', fg='#fff')
+AccuracyButton.grid(row=15, column=0, padx=15, pady=15)
+
+# Dummy number Button to start algorithm calculation and display prediction results
+PredictionButton = Button(tab3, text='Click to see Prediction Results', command=finalPrediction, width=25,
+                          bg='purple', fg='#fff')
+PredictionButton.grid(row=7, column=0, padx=5, pady=5)
+
+# Button to clear Tab 3 and start over
+ClearTabThreeButton = Button(tab3, text='Clear results and start over', command=clear_display_result, width=25,
+                          bg='purple', fg='#fff')
+ClearTabThreeButton.grid(row=9, column=0, padx=5, pady=5)
+
+# Menu button on tab 1, to start program over
+MenuTabOneButton = Button(tab1, text='Return to Program Main Menu', command=mainMenu, width=25,
+                          bg='purple', fg='#fff')
+MenuTabOneButton.grid(row=3, column=3, padx=5, pady=5)
+
+# Button on tab 1, to exit the program
+ExitTabOneButton = Button(tab1, text='Exit Program', command=exitProgram, width=14,
+                          bg='purple', fg='#fff')
+ExitTabOneButton.grid(row=4, column=3, padx=5, pady=5)
+
+# Display Screen for Result
+tab1_display = ScrolledText(tab1, height=20, width=100)
+tab1_display.grid(row=4, column=0, columnspan=3, padx=5, pady=5)
+
+tab2_display = ScrolledText(tab2, height=1, width=20)
+tab2_display.grid(row=3, column=0, columnspan=3, padx=5, pady=5)
+
+tab3_display = ScrolledText(tab3, height=1, width=100)
+tab3_display.grid(row=8, column=0, columnspan=3, padx=5, pady=5)
+
+tab3_ErrorDisplay = ScrolledText(tab3, height=3, width=30)
+tab3_ErrorDisplay.grid(row=3, column=3, columnspan=3, padx=5, pady=5)
+
+# Keep window alive
+mainloop()
