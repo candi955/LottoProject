@@ -1,0 +1,13 @@
+This project has been created as a functional program for a school project for the Advanced Programming class taught by
+Dr. Jill Coddington at the University of Advancing Technology. It is a Pycharm, Python project that practice utilizing
+various APIs.  My individual program has the goal of guiding the user through various choices and modules which allow
+the user to explore possible future winning numbers, months, and predictions concerning the Arizona Powerball lottery.
+
+It should be noted that my dataset is rather small, and that this program is for experimental, learning, and 
+entertainment purposes only.  The build of this program at this time is not likely to be very accurate, but does teach
+the functioning of various APIs, including some Machine Learning (ML) APIs and algorithms. 
+
+It should be noted that the main user-menu is on mainPage.py, for those wishing to utilize the program menus to reach
+various modules/individual programs within the main program itself. 
+
+This code/program is meant for educational purposes at this time. It is considered open-source. 
