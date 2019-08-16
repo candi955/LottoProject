@@ -37,6 +37,8 @@
 # Bar.py, utilizing SVM, SCATTER, and BAR as menu choices to do so.
 # 8/6/2019 @ 8:23am I added the Pytorch number prediction project on file Torch_Pred.py to the project, and also
 # added it under the choice PRED to the main menu.
+# 8/16/2019 @ 14:11 I have just finished updating my SVM_MonthlyPredictor.py page to a GUI format utilizing Tkinter.
+# I am now going to add a README page and turn in my final project.
 
 import random
 from textblob import TextBlob
@@ -741,7 +743,7 @@ def Choice():
 
     if LotteryChoices == "SVM":
 
-        import SVM_MonthPredictor
+        import SVM_MonthlyPredictor
 
     if LotteryChoices == "SEQ":
 
@@ -815,7 +817,7 @@ def Choice():
         mainM.main()
 
     if LotteryChoices == "PRED":
-        import Torch_Pred       
+        import Torch_Pred
 
     else:
         print("Incorrect entry. Please try again. / Entrada incorrecta. Inténtalo de nuevo..")
