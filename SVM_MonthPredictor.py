@@ -1,6 +1,6 @@
-# A program utilizing SKLearn to predict the month a set of lottery numbers will win (Currently only operates
-# for January until July, off of the dataset months I have available for the AZ Powerball numbers).  Called as SVM from
-# mainPage.py menu.
+# A GUI program (through Tkinter) utilizing SKLearn to predict the month a set of lottery numbers will win
+# (currently only operates for January until July, off of the dataset months I have available for the AZ Powerball
+# numbers).  Called as SVM from mainPage.py menu.
 
 
 # Training resource: https://www.youtube.com/watch?reload=9&v=bwZ3Qiuj3i8
@@ -101,7 +101,7 @@
 # Libraries
 import tkinter as tk
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox as mbox
 
 # Window Tabs Libraries
 from tkinter import ttk
@@ -116,6 +116,7 @@ import xlrd
 
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 # pulling excel file and creating variable
 lottoExcel = xlrd.open_workbook('PastWinningNum_SVM_Excel.xlsx')
@@ -165,12 +166,20 @@ tab_control.add(tab3, text='Dummy Values and Prediction')
 tab_control.pack(expand=1, fill='both')
 
 ###################################################################################################################
-
+# the dataframe method, tab 1
 def writeDataset():
     tab1_display.insert(1.0, pd.DataFrame(df))
+
+# the accuracy score method, tab 2
 def writeAccuracy():
     tab2_display.insert(4.0, str(accuracy_score(y_test, y_pred)))
 
+# creating a method so that the user can tab from one dummy number textbox to the next, instead of clicking
+def focus_next_widget(event):
+    event.widget.tk_focusNext().focus()
+    return("break")
+
+# the dummy number value method, for tab 3 input entries from the user
 def dummyValues():
     while True:
         try:
@@ -194,36 +203,39 @@ def dummyValues():
         # is made, the program brings the user back to the main menu by calling the Predictions class and menu
         # method
         except ValueError:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            # error message variable
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
 
 
         if dummyValues.dummyTextOne < 1 or dummyValues.dummyTextOne > 69:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
 
         if dummyValues.dummyTextTwo < 1 or dummyValues.dummyTextTwo > 69:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
         if dummyValues.dummyTextThree < 1 or dummyValues.dummyTextThree > 69:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
         if dummyValues.dummyTextFour < 1 or dummyValues.dummyTextFour > 69:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
         if dummyValues.dummyTextFive < 1 or dummyValues.dummyTextFive > 69:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
         else:
             # breaking the loop to avoid infinite loop
             break
 
+# the prediction method, for tab 3; utilizes dummy value input from dummy value method, which is why that method
+# is called at the beginning of the finalPrediction method (for the user-input variables)
 def finalPrediction():
 
     while True:
@@ -239,8 +251,8 @@ def finalPrediction():
             prediction = knn.predict([a])
             tab3_display.insert(4.0, prediction)
         except ValueError:
-            tab3_ErrorDisplay.insert(4.0, str('Please enter a number between 1 and 69.'))
-            root.after(500, clear_display_result())
+            mbox.showerror("Error", "Please enter a number between 1 and 69.")
+            clear_display_result()
 
         else:
             break
@@ -286,20 +298,28 @@ l3 = Label(tab3, text='Please enter five dummy numbers in the cells below,\n and
                       'see your prediction results:', padx=5, pady=5)
 l3.grid(row=1, column=0)
 
-l3Error = Label(tab3, text='Error message:', padx=5, pady=5)
-l3Error.grid(row=2, column=3)
-
 
 # Dummy Number Input Boxes
 dummyNumberOne = ScrolledText(tab3, height=1)
+# the next piece of code is calling from the focus_next_widget method so that the user can tab from textbox to textbox,
+# rather than clicking
+dummyNumberOne.bind("<Tab>", focus_next_widget)
 dummyNumberOne.grid(row=2, column=0, columnspan=1, padx=5, pady=5)
+
 dummyNumberTwo = ScrolledText(tab3, height=1)
+dummyNumberTwo.bind("<Tab>", focus_next_widget)
 dummyNumberTwo.grid(row=3, column=0, columnspan=1, padx=5, pady=5)
+
 dummyNumberThree = ScrolledText(tab3, height=1)
+dummyNumberThree.bind("<Tab>", focus_next_widget)
 dummyNumberThree.grid(row=4, column=0, columnspan=1, padx=5, pady=5)
+
 dummyNumberFour = ScrolledText(tab3, height=1)
+dummyNumberFour.bind("<Tab>", focus_next_widget)
 dummyNumberFour.grid(row=5, column=0, columnspan=1, padx=5, pady=5)
+
 dummyNumberFive = ScrolledText(tab3, height=1)
+dummyNumberFive.bind("<Tab>", focus_next_widget)
 dummyNumberFive.grid(row=6, column=0, columnspan=1, padx=5, pady=5)
 
 # Dataset Button
@@ -331,17 +351,14 @@ ExitTabOneButton = Button(tab1, text='Exit Program', command=exitProgram, width=
 ExitTabOneButton.grid(row=4, column=3, padx=5, pady=5)
 
 # Display Screen for Result
-tab1_display = ScrolledText(tab1, height=20, width=100)
+tab1_display = ScrolledText(tab1, height=20, width=50)
 tab1_display.grid(row=4, column=0, columnspan=3, padx=5, pady=5)
 
 tab2_display = ScrolledText(tab2, height=1, width=20)
 tab2_display.grid(row=3, column=0, columnspan=3, padx=5, pady=5)
 
-tab3_display = ScrolledText(tab3, height=1, width=100)
+tab3_display = ScrolledText(tab3, height=1)
 tab3_display.grid(row=8, column=0, columnspan=3, padx=5, pady=5)
-
-tab3_ErrorDisplay = ScrolledText(tab3, height=3, width=30)
-tab3_ErrorDisplay.grid(row=3, column=3, columnspan=3, padx=5, pady=5)
 
 # Keep window alive
 mainloop()
